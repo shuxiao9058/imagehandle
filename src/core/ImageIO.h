@@ -118,7 +118,12 @@ bool ImageIO::loadpng(const char* filename,unsigned char*& pData,int& width,int&
 
 	png_init_io(png_ptr, infile);
 	png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_EXPAND, 0);
-	nchannels = 3; // = png_get_channels(png_ptr, info_ptr); 
+	nchannels = png_get_channels(png_ptr, info_ptr);
+	if (4 == nchannels)
+	{
+		nchannels = 3;
+	}
+	
 	int png_chn = png_get_channels(png_ptr, info_ptr);
 	png_byte color_type = png_get_color_type(png_ptr, info_ptr);
 	png_byte bit_depth = png_get_bit_depth(png_ptr, info_ptr);
@@ -133,9 +138,14 @@ bool ImageIO::loadpng(const char* filename,unsigned char*& pData,int& width,int&
 	{
 		for(int j = 0; j < png_chn * width; j += png_chn)
 		{
-			*p++ = row_pointers[i][j + 2]; // B
-			*p++ = row_pointers[i][j + 1]; // G
-			*p++ = row_pointers[i][j];  // R
+			if (1 == nchannels) {
+				*p++ = row_pointers[i][j];
+			}
+			else {
+				*p++ = row_pointers[i][j + 2]; // B
+				*p++ = row_pointers[i][j + 1]; // G
+				*p++ = row_pointers[i][j];  // R
+			}
 			// 			if (4 == nchannels)
 			// 				*p++ = row_pointers[i][j + 3]; // A
 		}
