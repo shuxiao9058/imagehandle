@@ -11,11 +11,9 @@ using namespace cv;
 #include "jpeg/jerror.h"
 #include "jpeg/jpeglib.h"
 #include "png/png.h"
+#include "EasyBMP/EasyBMP.h"
 #endif
 
-#include "png/png.h"
-#include "jpeg/jpeglib.h"
-#include "EasyBMP/EasyBMP.h"
 
 class ImageIO
 {
