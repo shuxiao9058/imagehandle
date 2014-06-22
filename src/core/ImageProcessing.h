@@ -1,10 +1,12 @@
 #ifndef _ImageProcessing_h
 #define _ImageProcessing_h
 
-#include "math.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <typeinfo>
+
 
 //----------------------------------------------------------------------------------
 // class to handle basic image processing functions
@@ -185,7 +187,7 @@ void ImageProcessing::ResizeImage(const T1 *pSrcImage, T2 *pDstImage, int SrcWid
 template <class T1,class T2>
 void ImageProcessing::hfiltering(const T1* pSrcImage,T2* pDstImage,int width,int height,int nChannels,double* pfilter1D,int fsize)
 {
-	memset(pDstImage,0,sizeof(T2)*width*height*nChannels);
+        memset(pDstImage,0,sizeof(T2)*width*height*nChannels);
 	T2* pBuffer;
 	double w;
 	int i,j,l,k,offset,jj;

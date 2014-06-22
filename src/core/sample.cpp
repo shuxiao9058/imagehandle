@@ -1,14 +1,14 @@
 #include "Image.h"
 
-#pragma comment(lib, "fltkjpeg.lib")
-#pragma comment(lib, "fltkpng.lib")
-#pragma comment(lib, "fltkzlib.lib")
+// #pragma comment(lib, "fltkjpeg.lib")
+// #pragma comment(lib, "fltkpng.lib")
+// #pragma comment(lib, "fltkzlib.lib")
 
-#ifndef _DEBUG
-#pragma comment(lib, "EasyBMP.lib")
-#else
-#pragma comment(lib, "EasyBMP_debug.lib")
-#endif
+// #ifndef _DEBUG
+// #pragma comment(lib, "EasyBMP.lib")
+// #else
+// #pragma comment(lib, "EasyBMP_debug.lib")
+// #endif
 
 int main(int argc, char **argv)
 {

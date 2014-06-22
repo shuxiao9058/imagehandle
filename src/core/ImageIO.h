@@ -477,7 +477,9 @@ bool ImageIO::saveImage(const char* filename,const T* pImagePlane,int width,int 
 	char *p = strrchr(fn, '.');
 	char ext[_MAX_EXT];
 	strcpy(ext, p);
-
+        p = ext;
+        for ( ; *p; ++p) *p = toupper(*p);
+        
 	unsigned char *pData = new unsigned char[width * height * nchannels];
 	bool ret = false;
 	unsigned char *p1 = pData;
@@ -501,11 +503,11 @@ bool ImageIO::saveImage(const char* filename,const T* pImagePlane,int width,int 
 		}
 	}
 
-	if (0 == strcmp(strupr(ext), ".JPG"))
+	if (0 == strcmp(ext, ".JPG"))
 	{
 		ret = savejpg(filename, pData, width, height, nchannels);
 	}
-	else if (0 == strcmp(strupr(ext), ".BMP"))
+	else if (0 == strcmp(ext, ".BMP"))
 	{
 		ret = savebmp(filename, pData, width, height, nchannels);
 	}

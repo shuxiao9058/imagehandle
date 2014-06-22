@@ -2,7 +2,7 @@
 #include "stdio.h"
 
 // if the files are compiled in linux or mac os then uncomment the following line, otherwise comment it if you compile using visual studio in windows
- // #define _LINUX_MAC
+#define _LINUX_MAC
 // #define _OPENCV
 
 template <class T>
@@ -43,5 +43,8 @@ T1 __max(T1 a, T2 b)
 {
   return (a<b)?b:a;
 }
+
+#define _MAX_PATH 260
+#define _MAX_EXT 256
 
 #endif
