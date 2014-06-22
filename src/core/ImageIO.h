@@ -335,6 +335,7 @@ bool ImageIO::loadImage(const char *filename, T *&pImagePlane, int &width, int &
 	}
 	int flags;
 	fread(&flags, 4, 1, fp);
+        fclose(fp);
 	// std::cout << std::hex << flags << std::endl;
 	if (0xffd8ff == (flags & 0xffffff)) // jpg
 	{
@@ -501,7 +502,7 @@ bool ImageIO::saveImage(const char* filename,const T* pImagePlane,int width,int 
 		ret = savebmp(filename, pData, width, height, nchannels);
 	}
 	else {
-		fprintf(stderr, "save image: only support with jpg/bmp files.");
+		fprintf(stderr, "save image: only support with jpg/bmp file format.");
 		ret = false;
 	}
 	if (pData)
