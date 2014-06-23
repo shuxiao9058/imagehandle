@@ -1,6 +1,8 @@
 #ifndef _ImageIO_h
 #define _ImageIO_h
 
+#include <string.h>
+
 #ifdef _OPENCV
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
@@ -27,6 +29,7 @@ public:
 	template <class T>
 	static bool saveImage(const char* filename,const T* pImagePlane,int width,int height, int nchannels,ImageType imtype = standard);
 private:
+#ifndef _OPENCV
 	// template <class T>
 	static bool loadjpg(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
 	// template <class T>
@@ -38,8 +41,10 @@ private:
 	static bool savejpg(const char* filename,const unsigned char *pData,int width,int height, int nchannels);
 	// template <class T>
 	static bool savebmp(const char* filename,const unsigned char *pData,int width,int height, int nchannels);
+#endif
 };
 
+#ifndef _OPENCV
 // template <class T>
 bool ImageIO::loadjpg(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels)
 {
@@ -292,6 +297,7 @@ bool ImageIO::savebmp(const char* filename,const unsigned char *pData,int width,
 	 
 	return false;
 }
+#endif
 
 template <class T>
 bool ImageIO::loadImage(const char *filename, T *&pImagePlane, int &width, int &height, int &nchannels)
