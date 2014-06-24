@@ -16,7 +16,6 @@ using namespace cv;
 #include "EasyBMP/EasyBMP.h"
 #endif
 
-
 class ImageIO
 {
 public:
@@ -31,20 +30,21 @@ public:
 private:
 #ifndef _OPENCV
 	// template <class T>
-	static bool loadjpg(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
+	static inline bool loadjpg(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
 	// template <class T>
-	static bool loadpng(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
+	static inline bool loadpng(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
 	// template <class T>
-	static bool loadbmp(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
+	static inline bool loadbmp(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels);
 	
 	// template <class T>
-	static bool savejpg(const char* filename,const unsigned char *pData,int width,int height, int nchannels);
+	static inline bool savejpg(const char* filename,const unsigned char *pData,int width,int height, int nchannels);
 	// template <class T>
-	static bool savebmp(const char* filename,const unsigned char *pData,int width,int height, int nchannels);
+	static inline bool savebmp(const char* filename,const unsigned char *pData,int width,int height, int nchannels);
 #endif
 };
 
 #ifndef _OPENCV
+
 // template <class T>
 bool ImageIO::loadjpg(const char* filename,unsigned char*& pData,int& width,int& height, int& nchannels)
 {
