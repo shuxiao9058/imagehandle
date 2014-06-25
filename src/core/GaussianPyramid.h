@@ -44,7 +44,6 @@ void GaussianPyramid<ImageT>::ConstructPyramid(const ImageT &image, double ratio
 	// the ratio cannot be arbitrary numbers
 	if(ratio>0.98 || ratio<0.4)
 		ratio=0.75;
-	// first decide how many levels
 	if (-1 == m_nLevels) {
 		// first decide how many levels
 		m_nLevels=log((double)minWidth/image.width())/log(ratio);
