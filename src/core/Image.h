@@ -155,6 +155,10 @@ public:
 	void GaussianSmoothing(Image<T1>& image,double sigma,int fsize) const;
 
 	template <class T1>
+	void buildPyramid(Image<T1>& src, std::vector<Image<T1> *> &dst,
+		int maxlevel) const;
+		
+	template <class T1>
 	void smoothing(Image<T1>& image,double factor=4);
 
 	template <class T1>
@@ -994,6 +998,37 @@ void Image<T>::GaussianSmoothing(Image<T1>& image,double sigma,int fsize) const
 	imfilter_hv(image,gFilter,fsize,gFilter,fsize);
 
 	delete gFilter;
+}
+
+//------------------------------------------------------------------------------------------
+// function to build the pyramid images
+//------------------------------------------------------------------------------------------
+template <class T>
+template <class T1>
+void Image<T>::buildPyramid(Image<T1>& src, std::vector<Image<T1> *> &dst,
+	int maxlevel) const
+{
+	if (maxlevel < 1) {
+		fprintf(stderr, "level must great than 1 or equal to 1.");
+		return;
+	}
+
+	Image<T1> *pimg = new Image<T1>;
+	pimg->copy(src);
+	dst.push_back(pimg);
+
+	for (int i = 1; i < maxlevel; ++i)
+	{
+		pimg = NULL;
+		pimg = new Image<T1>;
+		pimg->copy(*dst[i - 1]);
+
+		pimg->GaussianSmoothing(*pimg, 0.67, 2); // 0.67, 5
+		pimg->imresize(0.5);
+		dst.push_back(pimg);
+	}
+
+	return;
 }
 
 //------------------------------------------------------------------------------------------
