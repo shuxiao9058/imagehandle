@@ -240,8 +240,17 @@ bool ImageIO::savejpg(const char* filename,const unsigned char* pData,int width,
 	}
 
 	jpeg_set_defaults(&cinfo);
-	jpeg_set_quality(&cinfo, 90, TRUE);
 
+	cinfo.q_scale_factor[0] = jpeg_quality_scaling(100);
+	cinfo.q_scale_factor[1] = jpeg_quality_scaling(100);
+
+	// You must also set 1x1 subsampling for efficient separate color 
+	// quality selection, since the default value used by library is 2x2
+	cinfo.comp_info[0].v_samp_factor = 1;
+	cinfo.comp_info[0].h_samp_factor = 1;
+
+	jpeg_set_quality(&cinfo, 100, TRUE);
+	
 	jpeg_start_compress(&cinfo, TRUE);
 
 	row_stride = width * nchannels;
@@ -294,7 +303,7 @@ bool ImageIO::savebmp(const char* filename,const unsigned char *pData,int width,
 
 	if (outBmp.WriteToFile(filename))
 		return true;
-	 
+	
 	return false;
 }
 #endif
@@ -340,7 +349,7 @@ bool ImageIO::loadImage(const char *filename, T *&pImagePlane, int &width, int &
 	return true;
 #else // impl with jpeg library
 	FILE *fp = NULL;
-	unsigned char *pData;
+	unsigned char *pData = NULL;
 	bool ret = false;
 
 	if ((fp = fopen(filename, "rb")) == NULL) {
